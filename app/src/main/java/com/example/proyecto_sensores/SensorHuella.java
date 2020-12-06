@@ -33,22 +33,22 @@ public class SensorHuella extends AppCompatActivity {
                     @NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(getApplicationContext(),
-                        "Ta cool!", Toast.LENGTH_SHORT).show();
+                        "Todo Bien", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(getApplicationContext(), TipoPedido.class));
             }
 
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Authentication failed",
+                Toast.makeText(getApplicationContext(), "Todo Mal :(",
                         Toast.LENGTH_SHORT)
                         .show();
 
             }
         });
 
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Captación de datos biométricos")
                 .setSubtitle("Log in using your biometric credential")
                 .setNegativeButtonText("Use account password")
                 .build();
@@ -56,15 +56,8 @@ public class SensorHuella extends AppCompatActivity {
         // Prompt appears when user clicks "Log in".
         // Consider integrating with the keystore to unlock cryptographic operations,
         // if needed by your app.
-        Button biometricLoginButton = findViewById(R.id.btnFinger);
-        biometricLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                biometricPrompt.authenticate(promptInfo);
-
-                //startActivity(new Intent(view.getContext(), TipoPedido.class));
-            }
-        } );
+        biometricPrompt.authenticate(promptInfo);
+        return;
     }
 
 }
