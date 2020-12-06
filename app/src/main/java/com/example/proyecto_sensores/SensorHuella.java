@@ -2,6 +2,7 @@ package com.example.proyecto_sensores;
 
 import android.app.Activity;
 import androidx.biometric.BiometricPrompt;;
+import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -9,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.concurrent.Executor;
 
-public class SensorHuella extends AppCompatActivity {
-    public static BiometricPrompt biometricPrompt;
+public class SensorHuella {
+    public BiometricPrompt biometricPrompt;
     @RequiresApi(api = Build.VERSION_CODES.P)
-    public void usar(){
-        Executor executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(this,
+    public void usar(Executor executor, final Context context, final FragmentActivity fragmentActivity){
+        //Executor executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(fragmentActivity,
                 executor, new BiometricPrompt.AuthenticationCallback() {
             @Override
             public void onAuthenticationError(int errorCode,
                                               @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(context,
                         "Authentication error: " + errString, Toast.LENGTH_SHORT)
                         .show();
             }
@@ -32,7 +34,7 @@ public class SensorHuella extends AppCompatActivity {
             public void onAuthenticationSucceeded(
                     @NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(context,
                         "Todo Bien", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(getApplicationContext(), TipoPedido.class));
             }
@@ -40,7 +42,7 @@ public class SensorHuella extends AppCompatActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Todo Mal :(",
+                Toast.makeText(context, "Todo Mal :(",
                         Toast.LENGTH_SHORT)
                         .show();
 
