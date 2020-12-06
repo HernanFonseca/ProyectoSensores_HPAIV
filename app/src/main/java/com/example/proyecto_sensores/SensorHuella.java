@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
 public class SensorHuella extends AppCompatActivity {
     public static BiometricPrompt biometricPrompt;
     @RequiresApi(api = Build.VERSION_CODES.P)
-    public void SensorHuella(){
+    public void usar(){
         Executor executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(this,
                 executor, new BiometricPrompt.AuthenticationCallback() {
