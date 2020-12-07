@@ -42,21 +42,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
+        gps = new SensorGPS(getApplicationContext(),MainActivity.this, locationManager);
         Button btnGPS = findViewById(R.id.btnGPS);
         btnGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    gps = new SensorGPS(getApplicationContext(),MainActivity.this, locationManager);
+                    gps.getLocation();
                 } catch(Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                try {
-                    String location = "Latitud: " + String.format("%.6f", gps.getLatitud()) +
-                            "\nLongitud: " + String.format("%.6f", gps.getLongitud());
-                    Toast.makeText(getApplicationContext(), location, Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
