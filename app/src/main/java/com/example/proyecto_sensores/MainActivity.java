@@ -9,10 +9,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
+    TextView latitud, longitud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 huella.usar(executor, MainActivity.this, fragment);
             }
         });
+
+        latitud = findViewById(R.id.txtLatitud);
+        longitud = findViewById(R.id.txtLongitud);
+
+        SensorGPS gps = new SensorGPS(getApplicationContext(), MainActivity.this, latitud, longitud);
     }
 }
