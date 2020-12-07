@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 } catch(Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        Button btnAcel = findViewById(R.id.btnAcel);
+        btnAcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Acelerometro.class);
+                startActivity(intent);
             }
         });
     }
