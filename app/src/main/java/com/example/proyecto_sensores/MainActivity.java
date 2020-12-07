@@ -22,8 +22,8 @@ import android.widget.Toast;
 import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
-    TextView txtLatitud, txtLongitud;
     LocationManager locationManager;
+    SensorGPS gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtLatitud = findViewById(R.id.txtLatitud);
-        txtLongitud = findViewById(R.id.txtLongitud);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         try {
-            SensorGPS gps = new SensorGPS(getApplicationContext(),
-                    this, locationManager, txtLatitud, txtLongitud);
+            gps = new SensorGPS(getApplicationContext(),this, locationManager);
         } catch(Exception e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+        Button btnGPS = findViewById(R.id.btnGPS);
+        btnGPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    String location = "Latitud: " + String.format("%.6f", gps.getLatitud()) +
+                            "\nLongitud: " + String.format("%.6f", gps.getLongitud());
+                    Toast.makeText(getApplicationContext(), location, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
